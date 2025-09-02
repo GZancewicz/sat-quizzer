@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>SAT Master - Fun SAT Prep Quiz</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <div id="app">
+        <header class="app-header">
+            <h1>SAT Master 🎓</h1>
+            <div class="score-display">
+                <span class="streak">🔥 <span id="streak">0</span></span>
+                <span class="points">⭐ <span id="points">0</span></span>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div id="home-screen" class="screen active">
+                <div class="welcome-box">
+                    <h2>Ready to Master the SAT?</h2>
+                    <p>Short 5-question quizzes to help you learn step by step!</p>
+                    <div class="daily-tip">
+                        <span class="tip-icon">💡</span>
+                        <span id="daily-tip">Start with Easy mode to build confidence!</span>
+                    </div>
+                </div>
+                
+                <div id="difficulty-selector" class="difficulty-selector" style="display: none;">
+                    <h3>Select Difficulty</h3>
+                    <div class="difficulty-options">
+                        <button class="difficulty-btn easy-btn" data-difficulty="easy">
+                            <span class="diff-icon">🌱</span>
+                            <span class="diff-label">Easy</span>
+                            <span class="diff-desc">Build foundation</span>
+                        </button>
+                        <button class="difficulty-btn medium-btn" data-difficulty="medium">
+                            <span class="diff-icon">🎯</span>
+                            <span class="diff-label">Medium</span>
+                            <span class="diff-desc">SAT level</span>
+                        </button>
+                        <button class="difficulty-btn hard-btn" data-difficulty="hard">
+                            <span class="diff-icon">🚀</span>
+                            <span class="diff-label">Hard</span>
+                            <span class="diff-desc">Challenge mode</span>
+                        </button>
+                    </div>
+                    <button class="cancel-btn" id="cancel-difficulty">← Back</button>
+                </div>
+                
+                <div class="subject-cards" id="subject-cards">
+                    <button class="subject-card math-card" data-subject="math">
+                        <div class="card-icon">🔢</div>
+                        <h3>Math</h3>
+                        <p>Algebra, Geometry & Problem Solving</p>
+                        <div class="difficulty-badge">800 points</div>
+                    </button>
+                    
+                    <button class="subject-card reading-card" data-subject="reading">
+                        <div class="card-icon">📚</div>
+                        <h3>Reading</h3>
+                        <p>Comprehension & Analysis</p>
+                        <div class="difficulty-badge">800 points</div>
+                    </button>
+                    
+                    <button class="subject-card writing-card" data-subject="writing">
+                        <div class="card-icon">✍️</div>
+                        <h3>Writing & Language</h3>
+                        <p>Grammar & Expression</p>
+                        <div class="difficulty-badge">800 points</div>
+                    </button>
+                    
+                    <button class="subject-card mixed-card" data-subject="mixed">
+                        <div class="card-icon">🎯</div>
+                        <h3>Mixed Practice</h3>
+                        <p>All subjects combined</p>
+                        <div class="difficulty-badge">Challenge Mode</div>
+                    </button>
+                </div>
+
+                <div class="stats-section">
+                    <h3>Your Progress</h3>
+                    <div class="progress-bars">
+                        <div class="progress-item">
+                            <span>Math</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill math-progress" id="math-progress"></div>
+                            </div>
+                            <span class="progress-percent" id="math-percent">0%</span>
+                        </div>
+                        <div class="progress-item">
+                            <span>Reading</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill reading-progress" id="reading-progress"></div>
+                            </div>
+                            <span class="progress-percent" id="reading-percent">0%</span>
+                        </div>
+                        <div class="progress-item">
+                            <span>Writing</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill writing-progress" id="writing-progress"></div>
+                            </div>
+                            <span class="progress-percent" id="writing-percent">0%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="achievements">
+                    <h3>Recent Achievements 🏆</h3>
+                    <div id="achievement-list" class="achievement-list"></div>
+                </div>
+            </div>
+
+            <div id="quiz-screen" class="screen">
+                <div class="quiz-header">
+                    <button class="back-btn" id="back-btn">← Back</button>
+                    <div class="quiz-info">
+                        <span class="subject-label" id="subject-label">Math</span>
+                        <span class="question-number">Question <span id="question-num">1</span> of <span id="total-questions">10</span></span>
+                    </div>
+                </div>
+
+                <div class="timer-bar">
+                    <div class="timer-fill" id="timer-fill"></div>
+                </div>
+
+                <div class="quiz-content">
+                    <div class="question-box">
+                        <p id="question-text"></p>
+                        <div id="question-image" class="question-image"></div>
+                    </div>
+
+                    <div class="answers" id="answers"></div>
+
+                    <button class="submit-btn" id="submit-btn" disabled>Submit Answer</button>
+                    <button class="next-btn" id="next-btn" style="display: none;">Next Question →</button>
+                </div>
+
+                <div class="explanation-box" id="explanation-box" style="display: none;">
+                    <h4>Explanation:</h4>
+                    <p id="explanation-text"></p>
+                </div>
+            </div>
+
+            <div id="result-screen" class="screen">
+                <div class="result-content">
+                    <h2>Quiz Complete! 🎉</h2>
+                    <div class="result-score">
+                        <div class="score-circle">
+                            <span class="score-percent" id="score-percent">0%</span>
+                        </div>
+                        <p>You got <span id="correct-count">0</span> out of <span id="total-count">0</span> correct!</p>
+                    </div>
+
+                    <div class="result-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Time Taken</span>
+                            <span class="stat-value" id="time-taken">0:00</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Points Earned</span>
+                            <span class="stat-value" id="points-earned">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Best Streak</span>
+                            <span class="stat-value" id="best-streak">0</span>
+                        </div>
+                    </div>
+
+                    <div class="achievement-unlocked" id="achievement-unlocked" style="display: none;">
+                        <h3>🏆 Achievement Unlocked!</h3>
+                        <p id="achievement-name"></p>
+                    </div>
+
+                    <div class="result-actions">
+                        <button class="btn-primary" id="retry-btn">Try Again</button>
+                        <button class="btn-secondary" id="home-btn">Back to Home</button>
+                    </div>
+
+                    <div class="review-section">
+                        <h3>Review Your Answers</h3>
+                        <div id="answer-review" class="answer-review"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div class="notification" id="notification"></div>
+    </div>
+
+    <script src="questions.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
