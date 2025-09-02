@@ -297,7 +297,7 @@ body {
 }
 
 .question-box {
-    background: white;
+    background: white !important;
     padding: 1.5rem;
     border-radius: 1rem;
     margin-bottom: 1.5rem;
@@ -307,7 +307,8 @@ body {
 #question-text {
     font-size: 1.1rem;
     line-height: 1.6;
-    color: var(--text-primary);
+    color: #1e293b !important;
+    font-weight: 500;
 }
 
 .answers {
@@ -318,8 +319,8 @@ body {
 }
 
 .answer-btn {
-    background: white;
-    border: 2px solid var(--border-color);
+    background: white !important;
+    border: 2px solid #e2e8f0 !important;
     border-radius: 0.75rem;
     padding: 1rem;
     display: flex;
@@ -328,11 +329,12 @@ body {
     cursor: pointer;
     transition: all 0.2s ease;
     text-align: left;
+    color: #1e293b !important;
 }
 
 .answer-btn:hover:not(:disabled) {
-    border-color: var(--primary-color);
-    background: #f8f9ff;
+    border-color: #6366f1 !important;
+    background: #f8f9ff !important;
 }
 
 .answer-btn.selected {
@@ -357,13 +359,14 @@ body {
 .answer-letter {
     width: 2rem;
     height: 2rem;
-    background: var(--bg-color);
+    background: #f1f5f9 !important;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 600;
     flex-shrink: 0;
+    color: #1e293b !important;
 }
 
 .answer-btn.selected .answer-letter {
@@ -766,36 +769,4 @@ body {
     }
 }
 
-@media (prefers-color-scheme: dark) {
-    :root {
-        --bg-color: #0f172a;
-        --card-bg: #1e293b;
-        --text-primary: #f1f5f9;
-        --text-secondary: #94a3b8;
-        --border-color: #334155;
-    }
-    
-    body {
-        background: linear-gradient(135deg, #312e81, #581c87);
-    }
-    
-    .welcome-box,
-    .subject-card,
-    .stats-section,
-    .achievements,
-    .quiz-header,
-    .question-box,
-    .answer-btn,
-    .stat-item,
-    .review-section {
-        background: var(--card-bg);
-    }
-    
-    .answer-btn:hover:not(:disabled) {
-        background: #2d3748;
-    }
-    
-    .difficulty-badge {
-        background: #2d3748;
-    }
-}
+/* Removed broken dark mode - keeping light mode only for readability */
