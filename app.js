@@ -274,21 +274,31 @@ class SATQuizApp {
         // Check which difficulties are unlocked
         ['easy', 'medium', 'hard'].forEach(diff => {
             const btn = document.querySelector(`[data-difficulty="${diff}"]`);
+            const descElement = btn.querySelector('.diff-desc');
+            
             if (diff === 'easy') {
                 btn.disabled = false;
+                btn.classList.remove('locked');
+                descElement.textContent = 'Build foundation';
             } else if (diff === 'medium') {
                 const easyPassed = localStorage.getItem(`${this.selectedSubject}_easy_passed`);
                 btn.disabled = !easyPassed;
                 if (!easyPassed) {
                     btn.classList.add('locked');
-                    btn.querySelector('.diff-desc').textContent = '🔒 Complete Easy first';
+                    descElement.textContent = '🔒 Complete Easy first';
+                } else {
+                    btn.classList.remove('locked');
+                    descElement.textContent = 'SAT level';
                 }
             } else if (diff === 'hard') {
                 const mediumPassed = localStorage.getItem(`${this.selectedSubject}_medium_passed`);
                 btn.disabled = !mediumPassed;
                 if (!mediumPassed) {
                     btn.classList.add('locked');
-                    btn.querySelector('.diff-desc').textContent = '🔒 Complete Medium first';
+                    descElement.textContent = '🔒 Complete Medium first';
+                } else {
+                    btn.classList.remove('locked');
+                    descElement.textContent = 'Challenge mode';
                 }
             }
         });
@@ -304,18 +314,19 @@ class SATQuizApp {
         const difficulty = this.currentQuiz.difficulty;
         const percentage = (this.score / this.currentQuiz.questions.length) * 100;
         
+        console.log(`Quiz completed: ${subject} - ${difficulty}, Score: ${percentage}%`);
+        
         if (percentage >= 80) {
             const progressKey = `${subject}_${difficulty}_passed`;
-            if (!localStorage.getItem(progressKey)) {
-                localStorage.setItem(progressKey, 'true');
-                
-                if (difficulty === 'easy') {
-                    this.showNotification('🎉 Medium difficulty unlocked!', 'success');
-                } else if (difficulty === 'medium') {
-                    this.showNotification('🏆 Hard difficulty unlocked!', 'success');
-                } else if (difficulty === 'hard') {
-                    this.showNotification('⭐ You mastered this topic!', 'success');
-                }
+            localStorage.setItem(progressKey, 'true');
+            console.log(`Unlocked: ${progressKey}`);
+            
+            if (difficulty === 'easy') {
+                this.showNotification('🎉 Medium difficulty unlocked!', 'success');
+            } else if (difficulty === 'medium') {
+                this.showNotification('🏆 Hard difficulty unlocked!', 'success');
+            } else if (difficulty === 'hard') {
+                this.showNotification('⭐ You mastered this topic!', 'success');
             }
         }
     }
